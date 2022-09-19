@@ -299,6 +299,7 @@ while True:
                 delete_sprite_in_a_row(col_num, row_num)
                 cbd.delete_chessman_in_a_column(col_num)
                 delete_sprite_in_a_column(col_num, row_num)
+                cbd.switch_turn_to_black()
 
 
 
