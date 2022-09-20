@@ -191,6 +191,8 @@ class Chessboard(object):
 
     def switch_turn_to_red(self):
         self.__is_red_turn = True
+    def switch_turn_to_black(self):
+        self.__is_red_turn = False
 
     def print_all_chessman_killing_list(self, screen):
         all_killing_list = []
