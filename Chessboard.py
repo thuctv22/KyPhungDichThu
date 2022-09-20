@@ -1,5 +1,6 @@
 # coding:utf-8
 import Chessman
+import pygame
 
 
 class Chessboard(object):
@@ -7,7 +8,7 @@ class Chessboard(object):
     def __init__(self, name):
         self.__name = name
         self.__is_red_turn = True
-        self.__chessmans = [([None] * 10) for i in range(9)]
+        self.__chessmans = [([None] * 9) for i in range(8)]
         self.__chessmans_hash = {}
         self.__history = {"red": {"chessman": None, "last_pos": None, "repeat": 0},
                           "black": {"chessman": None, "last_pos": None, "repeat": 0}}
@@ -32,90 +33,12 @@ class Chessboard(object):
     def chessmans_hash(self):
         return self.__chessmans_hash
 
-    def init_board(self):
-        red_rook_left = Chessman.Rook(" 车l红 ", "red_rook_left", True, self)
-        red_rook_left.add_to_board(0, 0)
-        red_rook_right = Chessman.Rook(" 车r红 ", "red_rook_right", True, self)
-        red_rook_right.add_to_board(8, 0)
-        black_rook_left = Chessman.Rook(
-            " 车l黑 ", "black_rook_left", False, self)
-        black_rook_left.add_to_board(0, 9)
-        black_rook_right = Chessman.Rook(
-            " 车r黑 ", "black_rook_right", False, self)
-        black_rook_right.add_to_board(8, 9)
-        red_knight_left = Chessman.Knight(
-            " 马l红 ", "red_knight_left", True, self)
-        red_knight_left.add_to_board(1, 0)
-        red_knight_right = Chessman.Knight(
-            " 马r红 ", "red_knight_right", True, self)
-        red_knight_right.add_to_board(7, 0)
-        black_knight_left = Chessman.Knight(
-            " 马l黑 ", "black_knight_left", False, self)
-        black_knight_left.add_to_board(1, 9)
-        black_knight_right = Chessman.Knight(
-            " 马r黑 ", "black_knight_right", False, self)
-        black_knight_right.add_to_board(7, 9)
-        red_cannon_left = Chessman.Cannon(
-            " 炮l红 ", "red_cannon_left", True, self)
-        red_cannon_left.add_to_board(1, 2)
-        red_cannon_right = Chessman.Cannon(
-            " 炮r红 ", "red_cannon_right", True, self)
-        red_cannon_right.add_to_board(7, 2)
-        black_cannon_left = Chessman.Cannon(
-            " 炮l黑 ", "black_cannon_left", False, self)
-        black_cannon_left.add_to_board(1, 7)
-        black_cannon_right = Chessman.Cannon(
-            " 炮r黑 ", "black_cannon_right", False, self)
-        black_cannon_right.add_to_board(7, 7)
-        red_elephant_left = Chessman.Elephant(
-            " 相l红 ", "red_elephant_left", True, self)
-        red_elephant_left.add_to_board(2, 0)
-        red_elephant_right = Chessman.Elephant(
-            " 相r红 ", "red_elephant_right", True, self)
-        red_elephant_right.add_to_board(6, 0)
-        black_elephant_left = Chessman.Elephant(
-            " 象l黑 ", "black_elephant_left", False, self)
-        black_elephant_left.add_to_board(2, 9)
-        black_elephant_right = Chessman.Elephant(
-            " 象r黑 ", "black_elephant_right", False, self)
-        black_elephant_right.add_to_board(6, 9)
-        red_mandarin_left = Chessman.Mandarin(
-            " 仕l红 ", "red_mandarin_left", True, self)
-        red_mandarin_left.add_to_board(3, 0)
-        red_mandarin_right = Chessman.Mandarin(
-            " 仕r红 ", "red_mandarin_right", True, self)
-        red_mandarin_right.add_to_board(5, 0)
-        black_mandarin_left = Chessman.Mandarin(
-            " 仕l黑 ", "black_mandarin_left", False, self)
-        black_mandarin_left.add_to_board(3, 9)
-        black_mandarin_right = Chessman.Mandarin(
-            " 仕r黑 ", "black_mandarin_right", False, self)
-        black_mandarin_right.add_to_board(5, 9)
-        red_king = Chessman.King(" 帅 红 ", "red_king", True, self)
-        red_king.add_to_board(4, 0)
-        black_king = Chessman.King(" 将 黑 ", "black_king", False, self)
-        black_king.add_to_board(4, 9)
-        red_pawn_1 = Chessman.Pawn(" 兵1红 ", "red_pawn_1", True, self)
-        red_pawn_1.add_to_board(0, 3)
-        red_pawn_2 = Chessman.Pawn(" 兵2红 ", "red_pawn_2", True, self)
-        red_pawn_2.add_to_board(2, 3)
-        red_pawn_3 = Chessman.Pawn(" 兵3红 ", "red_pawn_3", True, self)
-        red_pawn_3.add_to_board(4, 3)
-        red_pawn_4 = Chessman.Pawn(" 兵4红 ", "red_pawn_4", True, self)
-        red_pawn_4.add_to_board(6, 3)
-        red_pawn_5 = Chessman.Pawn(" 兵5红 ", "red_pawn_5", True, self)
-        red_pawn_5.add_to_board(8, 3)
-        black_pawn_1 = Chessman.Pawn(" 卒1黑 ", "black_pawn_1", False, self)
-        black_pawn_1.add_to_board(0, 6)
-        black_pawn_2 = Chessman.Pawn(" 卒2黑 ", "black_pawn_2", False, self)
-        black_pawn_2.add_to_board(2, 6)
-        black_pawn_3 = Chessman.Pawn(" 卒3黑 ", "black_pawn_3", False, self)
-        black_pawn_3.add_to_board(4, 6)
-        black_pawn_4 = Chessman.Pawn(" 卒4黑 ", "black_pawn_4", False, self)
-        black_pawn_4.add_to_board(6, 6)
-        black_pawn_5 = Chessman.Pawn(" 卒5黑 ", "black_pawn_5", False, self)
-        black_pawn_5.add_to_board(8, 6)
-
+    def init_board(self, screen):
+        # pass
+        for i in range(8):
+            for j in range(9):
+                pygame.draw.circle(screen, (138, 255, 255), (40 + 80*i, 40 + 80*j), 10)
+        
     def add_chessman(self, chessman, col_num, row_num):
         self.chessmans[col_num][row_num] = chessman
         if chessman.name not in self.__chessmans_hash:
@@ -131,8 +54,8 @@ class Chessboard(object):
 
     def calc_chessmans_moving_list(self):
         for chessman in self.__chessmans_hash.values():
-            if chessman.is_red == self.__is_red_turn:
-                chessman.calc_moving_list()
+            # if chessman.is_red == self.__is_red_turn:
+            chessman.calc_moving_list()
 
     def clear_chessmans_moving_list(self):
         for chessman in self.__chessmans_hash.values():
@@ -167,22 +90,22 @@ class Chessboard(object):
         else:
             return "black"
 
-    def is_end(self):
-        return self.who_is_victor(6)
+    # def is_end(self):
+    #     return self.who_is_victor(6)
 
-    def who_is_victor(self, repeat_num):
-        whos_turn = "red" if self.__is_red_turn else "black"
-        other_turn = "red" if not self.__is_red_turn else "black"
-        chessman = self.get_chessman_by_name("{0}_king".format(whos_turn))
-        if chessman != None:
-            if self.__history[other_turn]["repeat"] == repeat_num:
-                print("{0} is victor".format(whos_turn))
-                return True
-            else:
-                return False
-        else:
-            print("{0} is victor".format(other_turn))
-            return True
+    # def who_is_victor(self, repeat_num):
+    #     whos_turn = "red" if self.__is_red_turn else "black"
+    #     other_turn = "red" if not self.__is_red_turn else "black"
+    #     chessman = self.get_chessman_by_name("{0}_king".format(whos_turn))
+    #     if chessman != None:
+    #         if self.__history[other_turn]["repeat"] == repeat_num:
+    #             print("{0} is victor".format(whos_turn))
+    #             return True
+    #         else:
+    #             return False
+    #     else:
+    #         print("{0} is victor".format(other_turn))
+    #         return True
 
     def get_chessman(self, col_num, row_num):
         return self.__chessmans[col_num][row_num]
@@ -192,7 +115,7 @@ class Chessboard(object):
             return self.__chessmans_hash[name]
 
     def get_top_first_chessman(self, col_num, row_num):
-        for i in range(row_num + 1, 10, 1):
+        for i in range(row_num + 1, 9, 1):
             current = self.chessmans[col_num][i]
             if current != None:
                 return current
@@ -210,14 +133,14 @@ class Chessboard(object):
                 return current
 
     def get_right_first_chessman(self, col_num, row_num):
-        for i in range(col_num + 1, 9, 1):
+        for i in range(col_num + 1, 8, 1):
             current = self.chessmans[i][row_num]
             if current != None:
                 return current
 
     def get_top_second_chessman(self, col_num, row_num):
         count = 0
-        for i in range(row_num + 1, 10, 1):
+        for i in range(row_num + 1, 9, 1):
             current = self.chessmans[col_num][i]
             if current != None:
                 if count == 1:
@@ -247,7 +170,7 @@ class Chessboard(object):
 
     def get_right_second_chessman(self, col_num, row_num):
         count = 0
-        for i in range(col_num + 1, 9, 1):
+        for i in range(col_num + 1, 8, 1):
             current = self.chessmans[i][row_num]
             if current != None:
                 if count == 1:
@@ -257,11 +180,74 @@ class Chessboard(object):
 
     def print_to_cl(self):
         screen = "\r\n"
-        for i in range(9, -1, -1):
-            for j in range(9):
+        for i in range(8, -1, -1):
+            for j in range(8):
                 if self.__chessmans[j][i] != None:
                     screen += self.__chessmans[j][i].name_cn
                 else:
                     screen += "   .   "
             screen += "\r\n" * 3
         print(screen)
+
+    def switch_turn_to_red(self):
+        self.__is_red_turn = True
+
+    def print_all_chessman_killing_list(self, screen):
+        all_killing_list = []
+        for i in range(8, -1, -1):
+            for j in range(8):
+                if self.__chessmans[j][i] != None:
+                    if self.__chessmans[j][i].is_red == False:
+                        self.__chessmans[j][i].calc_killing_list()
+                        temp = self.__chessmans[j][i].killing_list
+                        # print(self.__chessmans[j][i].name)
+                        for point in temp:
+                            [vc, vr] = [point.x, point.y]
+
+                            # print(point.x, point.y, "\n")
+                            if [vc, vr] not in all_killing_list:
+                                all_killing_list.append([vc, vr])
+        for point in all_killing_list:
+            # print(point[0], point[1], "\n")
+            pygame.draw.circle(screen, (138, 43, 226), (40 + 80*(point[0]) , 80*(8-point[1]) + 40), 10)
+    
+    def clear_all_chessman_killing_list(self, screen):
+        for i in range(8, -1, -1):
+            for j in range(8):
+                pygame.draw.circle(screen, (138, 255, 255), (40 + 80*j , 80*(8-i) + 40), 10)
+
+    def find_Red_Rook(self):
+        for i in range(8, -1, -1):
+            for j in range(8):
+                if self.__chessmans[j][i] != None:
+                    chessname = self.__chessmans[j][i].name
+                    if "Red_rook" in chessname:
+                        # chessman = self.__chessmans[j][i]
+                        # print(chessman.col_num, chessman.row_num)
+                        return self.__chessmans[j][i]
+    def delete_chessman(self, col_num, row_num):
+        chessman_at_position = self.get_chessman(col_num, row_num)
+        if chessman_at_position != None:
+            self.chessmans[col_num][row_num] = None
+            self.__chessmans_hash.pop(chessman_at_position.name)
+
+
+    def delete_chessman_in_a_row(self, row_num):
+        for i in range(8):
+            if self.__chessmans[i][row_num] != None and self.__chessmans[i][row_num].is_red == False:
+                    self.delete_chessman(i, row_num)
+
+    def delete_chessman_in_a_column(self, col_num):
+        for i in range(8, -1, -1):
+            if self.__chessmans[col_num][i] != None and self.__chessmans[col_num][i].is_red == False:
+                    self.delete_chessman(col_num, i)
+
+
+                
+
+    
+    
+
+
+
+
