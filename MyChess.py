@@ -300,6 +300,37 @@ while True:
                 cbd.delete_chessman_in_a_column(col_num)
                 delete_sprite_in_a_column(col_num, row_num)
                 cbd.switch_turn_to_black()
+<<<<<<< HEAD
+=======
+            if event.key == K_r:
+                print("you pressed R, delete current row")
+                Red_Rook_chess = cbd.find_Red_Rook()
+                col_num = Red_Rook_chess.col_num
+                row_num = Red_Rook_chess.row_num
+                # print(col_num, row_num)                
+                cbd.delete_chessman_in_a_row(row_num)
+                delete_sprite_in_a_row(col_num, row_num)
+                # cbd.delete_chessman_in_a_column(col_num)
+                # delete_sprite_in_a_column(col_num, row_num)
+                cbd.switch_turn_to_black()
+            if event.key == K_l:
+                print("you pressed L, delete current Column")
+                Red_Rook_chess = cbd.find_Red_Rook()
+                col_num = Red_Rook_chess.col_num
+                row_num = Red_Rook_chess.row_num
+                # # print(col_num, row_num)                
+                # cbd.delete_chessman_in_a_row(row_num)
+                # delete_sprite_in_a_row(col_num, row_num)
+                cbd.delete_chessman_in_a_column(col_num)
+                delete_sprite_in_a_column(col_num, row_num)
+                cbd.switch_turn_to_black()
+            if event.key == K_s:
+                print("you pressed s, switch turn")
+                if cbd.is_red_turn:
+                    cbd.switch_turn_to_black()
+                else:
+                    cbd.switch_turn_to_red()
+>>>>>>> 72a17699ff08e14d343b0a7b9bf241289d4ebd4e
 
 
 
